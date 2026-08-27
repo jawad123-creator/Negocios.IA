@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://jawad123-creator.github.io/Negocios.IA/</loc>
-    </url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/sobre-mi.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/contacto.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/aviso-legal.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/privacidad.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/cookies.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/articulos/chatgpt-pequenos-negocios.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/articulos/ia-marketing-local.html</loc></url>
+  <url><loc>https://jawad123-creator.github.io/Negocios.IA/articulos/chatgpt-vs-claude.html</loc></url>
 </urlset>
