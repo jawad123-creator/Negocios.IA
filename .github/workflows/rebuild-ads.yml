@@ -30,7 +30,7 @@ jobs:
               s=re.sub(r'<div class="ad-native">.*?</div>', '', s, flags=re.S)
               s=re.sub(r'<script async src="https://pagead2\.googlesyndication\.com/[^>]+></script>', '', s)
               s=s.replace('</style>',css+'</style>',1)
-              if '/articulos/' in str(p):
+              if 'articulos/' in str(p):
                   s=re.sub(r'(<h2>.*?</h2><p>.*?</p>)',r'\1'+native,s,count=1,flags=re.S)
                   s=re.sub(r'(<h2>.*?</h2><p>.*?</p>)',r'\1'+b300,s,count=1,flags=re.S)
                   s=re.sub(r'(<h2>.*?</h2><p>.*?</p>)',r'\1'+b728+b320,s,count=1,flags=re.S)
