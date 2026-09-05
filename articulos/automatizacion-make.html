@@ -4,44 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="description" content="Aprende cuándo merece la pena automatizar un pequeño negocio con Make, qué tareas elegir, cómo calcular el ahorro y cómo evitar errores.">
+<meta name="description" content="Aprende cómo automatizar un pequeño negocio con Make: elige una tarea, crea tu primer escenario paso a paso, conecta aplicaciones, prueba el flujo y mide el ahorro.">
 <meta name="author" content="Jawad">
 <link rel="canonical" href="https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Automatización para pequeños negocios: cómo utilizar Make">
-<meta property="og:description" content="Qué tareas automatizar con Make, cómo calcular el ahorro y qué revisar antes de crear un flujo de automatización.">
+<meta property="og:title" content="Automatización para pequeños negocios: cómo utilizar Make paso a paso">
+<meta property="og:description" content="Guía práctica para elegir qué automatizar con Make y crear un primer escenario paso a paso.">
 <meta property="og:url" content="https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html">
 <meta property="og:site_name" content="Negocios.IA">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Automatización para pequeños negocios: cómo utilizar Make">
-<meta name="twitter:description" content="Guía práctica para decidir qué automatizar con Make y cuándo compensa hacerlo.">
-<title>Automatización para pequeños negocios: cómo utilizar Make | Negocios.IA</title>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Automatización para pequeños negocios: cómo utilizar Make paso a paso">
+<meta name="twitter:description" content="Aprende a crear, probar y mantener una automatización con Make.">
+<title>Automatización para pequeños negocios: cómo utilizar Make paso a paso | Negocios.IA</title>
 <style>
-:root{--bg:#0b1020;--card:#121a2e;--text:#f8fafc;--muted:#a7b0c0;--accent:#9aa7ff;--border:#ffffff1a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.8 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent)}.wrap{max-width:820px;margin:auto;padding:40px 22px}.back{margin-bottom:28px}.meta{color:var(--accent);font-size:.82rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}h1{font-size:clamp(2.25rem,5vw,3.7rem);line-height:1.08;margin:14px 0 20px}h2{font-size:1.8rem;line-height:1.2;margin:48px 0 14px}h3{font-size:1.25rem;line-height:1.3;margin-top:28px}.lead{font-size:1.12rem;color:#dce2ee}.box{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:12px;margin:28px 0}.toc{background:var(--card);border:1px solid var(--border);padding:20px 24px;border-radius:12px;margin:30px 0}.toc ul{margin:10px 0 0;padding-left:22px}li{margin:6px 0}.related{border-top:1px solid var(--border);margin-top:45px;padding-top:28px}.related ul{padding-left:22px}footer{margin-top:60px;border-top:1px solid var(--border);padding-top:25px;color:var(--muted);font-size:.9rem}.breadcrumbs{font-size:.9rem;color:var(--muted)}.date{color:var(--muted);font-size:.92rem}@media(max-width:600px){.wrap{padding:28px 18px}h1{font-size:2.3rem}}
-.ad-native,.ad-300,.ad-responsive{margin:34px auto;display:flex;align-items:center;justify-content:center;overflow:hidden}.ad-native{width:100%;max-width:820px}.ad-300{width:300px;min-height:250px}.ad-responsive{width:100%;height:90px}.ad-320{display:none}.smartlink-box{margin:38px 0;padding:16px 18px;background:#121a2e;border:1px solid #ffffff1a;border-radius:12px;display:flex;justify-content:space-between;gap:15px;align-items:center}.smartlink-box span{color:#a7b0c0}.smartlink-box a{font-weight:700}@media(max-width:600px){.ad-728{display:none}.ad-320{display:flex;height:50px}.smartlink-box{flex-direction:column;align-items:flex-start}}</style>
+:root{--bg:#0b1020;--card:#121a2e;--text:#f8fafc;--muted:#a7b0c0;--accent:#9aa7ff;--border:#ffffff1a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.8 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent)}.wrap{max-width:820px;margin:auto;padding:40px 22px}.back{margin-bottom:28px}.meta{color:var(--accent);font-size:.82rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}h1{font-size:clamp(2.25rem,5vw,3.7rem);line-height:1.08;margin:14px 0 20px}h2{font-size:1.8rem;line-height:1.2;margin:52px 0 14px}h3{font-size:1.25rem;line-height:1.3;margin-top:28px}.lead{font-size:1.12rem;color:#dce2ee}.box{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:12px;margin:28px 0}.toc{background:var(--card);border:1px solid var(--border);padding:20px 24px;border-radius:12px;margin:30px 0}.toc ul{margin:10px 0 0;padding-left:22px}li{margin:6px 0}.guide-image{margin:28px 0}.guide-image img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--border);background:#fff}.guide-image figcaption{color:var(--muted);font-size:.9rem;margin-top:9px}.steps{counter-reset:step;list-style:none;padding:0}.steps li{counter-increment:step;position:relative;padding:18px 18px 18px 58px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin:12px 0}.steps li:before{content:counter(step);position:absolute;left:18px;top:18px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#0b1020;font-weight:800}.checklist{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px}.related{border-top:1px solid var(--border);margin-top:45px;padding-top:28px}.related ul{padding-left:22px}footer{margin-top:60px;border-top:1px solid var(--border);padding-top:25px;color:var(--muted);font-size:.9rem}.breadcrumbs{font-size:.9rem;color:var(--muted)}.date{color:var(--muted);font-size:.92rem}.source{font-size:.88rem;color:var(--muted)}@media(max-width:600px){.wrap{padding:28px 18px}h1{font-size:2.3rem}}
+</style>
 <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Article",
-  "headline":"Automatización para pequeños negocios: cómo utilizar Make",
-  "description":"Guía práctica para decidir qué tareas automatizar con Make en un pequeño negocio, calcular el ahorro y reducir errores.",
-  "author":{"@type":"Person","name":"Jawad"},
-  "publisher":{"@type":"Organization","name":"Negocios.IA","url":"https://jawad123-creator.github.io/Negocios.IA/"},
-  "mainEntityOfPage":{"@type":"WebPage","@id":"https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html"},
-  "datePublished":"2026-08-27",
-  "dateModified":"2026-09-05",
-  "inLanguage":"es"
-}
+{"@context":"https://schema.org","@type":"Article","headline":"Automatización para pequeños negocios: cómo utilizar Make paso a paso","description":"Guía práctica para decidir qué tareas automatizar con Make, crear un primer escenario, probarlo y medir el ahorro.","author":{"@type":"Person","name":"Jawad"},"publisher":{"@type":"Organization","name":"Negocios.IA","url":"https://jawad123-creator.github.io/Negocios.IA/"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html"},"datePublished":"2026-08-27","dateModified":"2026-09-05","inLanguage":"es"}
 </script>
 <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"BreadcrumbList",
-  "itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Negocios.IA","item":"https://jawad123-creator.github.io/Negocios.IA/"},
-    {"@type":"ListItem","position":2,"name":"Automatización para pequeños negocios","item":"https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html"}
-  ]
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Negocios.IA","item":"https://jawad123-creator.github.io/Negocios.IA/"},{"@type":"ListItem","position":2,"name":"Automatización para pequeños negocios","item":"https://jawad123-creator.github.io/Negocios.IA/articulos/automatizacion-make.html"}]}
 </script>
 </head>
 <body>
@@ -49,57 +31,99 @@
 <p class="back"><a href="/Negocios.IA/">← Volver a Negocios.IA</a></p>
 <p class="breadcrumbs"><a href="/Negocios.IA/">Negocios.IA</a> · Automatización</p>
 <p class="meta">AUTOMATIZACIÓN · GUÍA PRÁCTICA</p>
-<h1>Automatización para pequeños negocios: cómo utilizar Make</h1>
+<h1>Automatización para pequeños negocios: cómo utilizar Make paso a paso</h1>
 <p class="date">Publicado el 27 de agosto de 2026 · Actualizado el 5 de septiembre de 2026</p>
-<p class="lead">Automatizar un pequeño negocio no significa convertir todos sus procesos en flujos automáticos. La clave es encontrar tareas repetitivas, predecibles y fáciles de comprobar donde el ahorro de tiempo compense el coste de configurar y mantener la automatización. En esta guía vemos cómo utilizar herramientas como Make con ese criterio.</p>
+<p class="lead">Automatizar un pequeño negocio no significa convertir todos sus procesos en flujos automáticos. La clave es encontrar tareas repetitivas, predecibles y fáciles de comprobar donde el ahorro de tiempo compense el coste de configurar y mantener la automatización. En esta guía no solo veremos <strong>qué automatizar</strong>, sino también <strong>cómo construir y probar un flujo con Make</strong>.</p>
 
 <nav class="toc" aria-label="Índice del artículo">
 <strong>En esta guía</strong>
 <ul>
 <li><a href="#que-es">Qué es la automatización con Make</a></li>
 <li><a href="#tareas">Qué tareas conviene automatizar primero</a></li>
+<li><a href="#como-crear">Cómo crear tu primera automatización con Make</a></li>
 <li><a href="#ahorro">Cómo calcular si compensa</a></li>
 <li><a href="#errores">Errores y mantenimiento</a></li>
-<li><a href="#ejemplo">Ejemplo de automatización para una pyme</a></li>
+<li><a href="#ejemplo">Ejemplo completo: formulario → hoja → aviso</a></li>
 <li><a href="#faq">Preguntas frecuentes</a></li>
 </ul>
 </nav>
 
 <h2 id="que-es">¿Qué es la automatización con Make?</h2>
-<p>Make es una plataforma de automatización que permite conectar aplicaciones y definir acciones que se ejecutan cuando ocurre un determinado evento. Por ejemplo, un formulario puede enviar los datos a una hoja de cálculo, avisar al responsable y activar un correo de confirmación.</p>
-<p>La ventaja no está en automatizar por automatizar. Una buena automatización elimina trabajo mecánico sin crear un sistema más difícil de controlar que el proceso original. Por eso conviene empezar con un único flujo y medir su resultado.</p>
+<p>Make es una plataforma de automatización que permite conectar aplicaciones y definir acciones que se ejecutan cuando ocurre un determinado evento. En un escenario, cada módulo representa una parte del flujo: puede recibir datos, transformarlos, aplicar una condición o ejecutar una acción.</p>
+<p>Por ejemplo, un negocio puede recibir un formulario, guardar los datos del contacto en Google Sheets y enviar una notificación al responsable. El objetivo es eliminar el copiar y pegar, no eliminar el control humano allí donde todavía hace falta.</p>
+<figure class="guide-image">
+<img src="https://images.archbee.com/4CkrlJIBl1di_p1x71ery-wbc3ohY_lyFGQL5WOS3Z5-20250228-112954.png?format=webp" alt="Constructor visual de escenarios de Make conectado con Google Sheets y otras aplicaciones" loading="lazy" width="1024" height="576">
+<figcaption>Ejemplo visual del constructor de escenarios de Make. La plataforma representa el flujo mediante módulos conectados.</figcaption>
+</figure>
+<p class="source">Referencia visual: documentación oficial de Make.</p>
 
 <h2 id="tareas">¿Qué tareas conviene automatizar primero?</h2>
-<p>Para un pequeño negocio, los mejores candidatos suelen compartir tres características: se repiten con frecuencia, siguen reglas claras y su resultado se puede comprobar. Algunos ejemplos son:</p>
+<p>Antes de abrir Make, describe el proceso manual en pasos. Si no puedes explicar claramente qué ocurre primero, qué dato entra, qué decisión se toma y qué resultado sale, todavía no tienes un proceso suficientemente definido para automatizar.</p>
+<p>Los mejores candidatos para empezar suelen ser frecuentes, predecibles y fáciles de comprobar:</p>
 <ul>
 <li><strong>Captación de contactos:</strong> guardar automáticamente los datos de un formulario y avisar al responsable.</li>
-<li><strong>Seguimiento de clientes:</strong> crear una tarea cuando entra un nuevo contacto o cuando llega el momento de hacer seguimiento.</li>
-<li><strong>Actualización de datos:</strong> copiar información entre una hoja de cálculo, un CRM u otra aplicación sin repetirla manualmente.</li>
-<li><strong>Notificaciones:</strong> enviar avisos internos cuando ocurre un evento importante.</li>
-<li><strong>Informes periódicos:</strong> reunir datos de varias herramientas y preparar un resumen para revisarlo.</li>
+<li><strong>Seguimiento:</strong> crear tareas cuando entra un nuevo cliente potencial o llega una fecha determinada.</li>
+<li><strong>Actualización de datos:</strong> pasar información entre una hoja, CRM o base de datos sin copiarla manualmente.</li>
+<li><strong>Notificaciones:</strong> avisar al equipo cuando ocurre un evento importante.</li>
+<li><strong>Informes:</strong> reunir datos de varias aplicaciones y preparar un resumen periódico.</li>
 </ul>
-<p>No todas las tareas deben automatizarse. Si una decisión necesita contexto, negociación o criterio profesional, normalmente es mejor automatizar solo las partes mecánicas y mantener la decisión final bajo supervisión humana.</p>
+<p>No automatices primero una tarea rara y complicada solo porque parezca impresionante. Una tarea sencilla que ocurre 100 veces puede aportar más valor que un proceso sofisticado que ocurre una vez al mes.</p>
 
-<h2 id="ahorro">Calcula el ahorro antes de construir el flujo</h2>
+<h2 id="como-crear">Cómo crear tu primera automatización con Make</h2>
+<p>Para aprender, vamos a utilizar un ejemplo sencillo: <strong>cuando aparece un nuevo contacto en Google Sheets, enviar un aviso a un canal de Slack</strong>. Es un buen ejercicio porque permite entender el concepto de disparador, módulo, conexión, mapeo, prueba y programación.</p>
+
+<ol class="steps">
+<li><strong>Crea una hoja de prueba.</strong> Añade columnas como nombre, email, empresa y estado. Introduce dos o tres filas ficticias para poder hacer pruebas sin tocar datos reales.</li>
+<li><strong>Abre Make y crea un escenario.</strong> En el área de escenarios, crea uno nuevo y añade Google Sheets como primera aplicación. Make recomienda empezar por un escenario pequeño antes de construir automatizaciones complejas.</li>
+<li><strong>Elige el disparador.</strong> Selecciona una acción que detecte nuevas filas, como <em>Watch New Rows</em>. El disparador define qué evento pone en marcha el flujo.</li>
+<li><strong>Conecta tu cuenta.</strong> Autoriza el acceso a Google Sheets y selecciona el archivo y la hoja que vas a utilizar. Conecta únicamente las cuentas y permisos necesarios.</li>
+<li><strong>Añade el segundo módulo.</strong> Pulsa el botón para añadir otro módulo y selecciona Slack. Para este ejemplo, utiliza una acción de envío de mensaje.</li>
+<li><strong>Mapea los datos.</strong> En el mensaje de Slack, inserta los campos que vienen de Google Sheets. Por ejemplo: “Nuevo contacto: [nombre] · [email] · [empresa]”. El mapeo es lo que conecta la información de un módulo con el siguiente.</li>
+<li><strong>Haz una prueba con Run once.</strong> Añade una nueva fila de prueba y ejecuta el escenario una vez. Comprueba que Google Sheets detecta el dato y que Slack recibe exactamente lo esperado.</li>
+<li><strong>Revisa los resultados antes de activarlo.</strong> Comprueba que no se envían datos duplicados, que los campos llegan correctamente y que un dato vacío no rompe el flujo.</li>
+<li><strong>Programa el escenario.</strong> Cuando todo funcione, define cada cuánto debe ejecutarse. No necesitas revisar datos cada minuto si el negocio solo necesita un aviso cada cierto tiempo.</li>
+<li><strong>Documenta el flujo.</strong> Escribe qué lo activa, qué aplicaciones utiliza, qué datos mueve y qué hacer si falla. Esto hace que la automatización sea mantenible.</li>
+</ol>
+
+<figure class="guide-image">
+<img src="https://images.ctfassets.net/un655fb9wln6/3OTujy1On0baMOR3CUInRm/7f016f0f65cd15b089b36b2882267a70/Measure_active_customers_automation_-_19.png" alt="Ejemplo de escenario de Make conectando módulos de Google Sheets y Slack" loading="lazy" width="1200" height="675">
+<figcaption>Los módulos de Make se conectan visualmente y permiten comprobar qué datos pasan de un paso al siguiente.</figcaption>
+</figure>
+<p class="source">Referencia visual: tutoriales oficiales de Make.</p>
+
+<div class="box"><strong>Consejo para empezar:</strong> no construyas diez automatizaciones a la vez. Crea una, pruébala durante varios días y mide el resultado. Si funciona de forma estable, entonces amplíala.</div>
+
+<h2 id="ahorro">Cómo calcular si la automatización compensa</h2>
 <p>Antes de crear una automatización con Make, calcula cuánto trabajo puede eliminar realmente. Multiplica el tiempo que tarda una tarea por el número de veces que se repite al mes.</p>
 <div class="box"><strong>Ejemplo:</strong> si una tarea tarda 5 minutos y se realiza 50 veces al mes, supone unas 4 horas y 10 minutos de trabajo mensual. Si configurar, probar y mantener el flujo requiere más tiempo que el ahorro que produce durante un periodo razonable, quizá no merezca la pena.</div>
-<p>También debes contar el coste de las herramientas conectadas, los límites de operaciones, posibles cambios en las aplicaciones y el tiempo necesario para revisar los errores. El objetivo no es maximizar el número de automatizaciones, sino conseguir un ahorro neto útil.</p>
+<p>También debes contar el coste de las herramientas conectadas, los límites de operaciones, posibles cambios en las aplicaciones y el tiempo necesario para revisar los errores. El objetivo no es tener más escenarios: es conseguir un ahorro neto útil.</p>
 
 <h2 id="errores">Errores habituales y mantenimiento</h2>
-<p>Una automatización puede dejar de funcionar aunque al principio esté bien configurada. Una aplicación puede cambiar su API, faltar un dato, caducar una autorización o alcanzarse un límite del servicio.</p>
-<p>Por eso, un flujo importante debería tener una forma clara de detectar fallos. Documenta qué datos recibe, qué acciones ejecuta, qué aplicaciones utiliza y quién puede corregirlo. Revisa además los flujos críticos después de cambios importantes en las herramientas que utilizan.</p>
+<p>Una automatización puede dejar de funcionar aunque al principio esté bien configurada. Una aplicación puede cambiar, faltar un dato, caducar una autorización o alcanzarse un límite del servicio.</p>
+<ul>
+<li><strong>No pruebes directamente con clientes reales:</strong> utiliza primero datos ficticios.</li>
+<li><strong>Comprueba los datos vacíos:</strong> decide qué debe ocurrir si falta un email, teléfono o identificador.</li>
+<li><strong>Evita duplicados:</strong> define cómo sabrá el flujo si un registro ya fue procesado.</li>
+<li><strong>Controla los errores:</strong> revisa el historial de ejecuciones y crea rutas de error cuando el proceso sea importante.</li>
+<li><strong>Documenta los permisos:</strong> si una conexión cambia o caduca, debes saber qué cuenta utiliza el escenario.</li>
+</ul>
+<p>Por eso, un flujo importante debería tener una forma clara de detectar fallos. Documenta qué datos recibe, qué acciones ejecuta, qué aplicaciones utiliza y quién puede corregirlo.</p>
 <div class="box"><strong>Regla práctica:</strong> no automatices un proceso que todavía cambia constantemente. Primero consigue que el proceso manual sea suficientemente claro; después automatiza las partes repetitivas.</div>
 
-<h2 id="ejemplo">Ejemplo: automatizar nuevos contactos</h2>
-<p>Imagina una pequeña empresa que recibe solicitudes desde un formulario web. Un flujo sencillo podría ser:</p>
+<h2 id="ejemplo">Ejemplo completo: formulario → hoja → aviso</h2>
+<p>Supongamos que una pequeña empresa recibe solicitudes desde un formulario web. El proceso manual podría ser:</p>
 <ol>
-<li>El cliente envía el formulario.</li>
-<li>Make recibe los datos y comprueba que los campos necesarios estén completos.</li>
-<li>Los datos se guardan en el sistema elegido por el negocio.</li>
-<li>El responsable recibe una notificación.</li>
-<li>El cliente recibe una confirmación de recepción.</li>
+<li>El cliente rellena el formulario.</li>
+<li>Alguien copia los datos a una hoja.</li>
+<li>Otra persona avisa al responsable comercial.</li>
+<li>El responsable empieza el seguimiento.</li>
 </ol>
-<p>Este tipo de flujo es más fácil de comprobar que una automatización que intenta gestionar todo el proceso comercial. Si funciona de forma estable, se puede ampliar progresivamente con nuevas acciones.</p>
+<p>Con Make, el flujo podría quedar así:</p>
+<div class="checklist">
+<p><strong>Formulario</strong> → <strong>Google Sheets</strong> → <strong>Filtro</strong> → <strong>Slack/email</strong> → <strong>seguimiento humano</strong></p>
+<p>La automatización se ocupa de transportar y clasificar la información. La persona sigue tomando la decisión comercial. Este reparto suele ser más seguro que intentar automatizar todo el proceso de ventas.</p>
+</div>
+<p>Make muestra precisamente este patrón en sus tutoriales: un escenario puede vigilar una hoja de cálculo, recoger nuevos registros y enviar una notificación a otro servicio. citeturn1search11turn1search13</p>
 
 <h2 id="faq">Preguntas frecuentes</h2>
 <h3>¿Make sirve para pequeños negocios?</h3>
@@ -124,6 +148,6 @@
 <footer>
 <a href="/Negocios.IA/privacidad.html">Privacidad</a> · <a href="/Negocios.IA/cookies.html">Cookies</a> · <a href="/Negocios.IA/contacto.html">Contacto</a>
 </footer>
-<div class="smartlink-box"><span>Recurso recomendado</span><a href="https://www.profitableratecpmnetwork.com/vtpmjm7xn?key=1a302b22acf124ab07d482bc7db8486a" rel="nofollow sponsored">Ver recurso →</a></div></main>
-<script src="https://pl31198060.profitableratecpmnetwork.com/14/41/a6/1441a6308d99f419a586dc758e38f62a.js"></script></body>
+</main>
+</body>
 </html>
