@@ -14,9 +14,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-          old_native='''<div style="margin:32px 0;text-align:center;overflow:hidden;"><script async="async" data-cfasync="false" src="https://pl31172636.profitableratecpmnetwork.com/a609aa5baa281946f3978d91f6e7f4d5/invoke.js"></script><div id="container-a609aa5baa281946f3978d91f6e7f4d5"></div></div>'''
-          old_wide='''<div class="ad-wide"><script>atOptions={'key':'4dc1319aa7ca2d9e4cee5cd26c710cf9','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://www.highrevenueformat.com/4dc1319aa7ca2d9e4cee5cd26c710cf9/invoke.js"></script></div>'''
-          old_300='''<div class="ad-slot"><script>atOptions={'key':'f177569624c6dd37ca61725706854f70','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highrevenueformat.com/f177569624c6dd37ca61725706854f70/invoke.js"></script></div>'''
+
           native='<div class="ad-native"><script async="async" data-cfasync="false" src="https://pl31172636.profitableratecpmnetwork.com/a609aa5baa281946f3978d91f6e7f4d5/invoke.js"></script><div id="container-a609aa5baa281946f3978d91f6e7f4d5"></div></div>'
           b300='<div class="ad-300"><script>atOptions={"key":"f177569624c6dd37ca61725706854f70","format":"iframe","height":250,"width":300,"params":{}};</script><script src="https://www.highrevenueformat.com/f177569624c6dd37ca61725706854f70/invoke.js"></script></div>'
           b728='<div class="ad-responsive ad-728"><script>atOptions={"key":"4dc1319aa7ca2d9e4cee5cd26c710cf9","format":"iframe","height":90,"width":728,"params":{}};</script><script src="https://www.highrevenueformat.com/4dc1319aa7ca2d9e4cee5cd26c710cf9/invoke.js"></script></div>'
@@ -26,10 +24,11 @@ jobs:
           css='.ad-native,.ad-300,.ad-responsive{margin:34px auto;display:flex;align-items:center;justify-content:center;overflow:hidden}.ad-native{width:100%;max-width:820px}.ad-300{width:300px;min-height:250px}.ad-responsive{width:100%;height:90px}.ad-320{display:none}.smartlink-box{margin:38px 0;padding:16px 18px;background:#121a2e;border:1px solid #ffffff1a;border-radius:12px;display:flex;justify-content:space-between;gap:15px;align-items:center}.smartlink-box span{color:#a7b0c0}.smartlink-box a{font-weight:700}@media(max-width:600px){.ad-728{display:none}.ad-320{display:flex;height:50px}.smartlink-box{flex-direction:column;align-items:flex-start}}'
           pop_pattern=r'<script src="https://pl31198058\.profitableratecpmnetwork\.com/55/9f/e7/559fe752a937dcc608a0d073e947a5c3\.js"></script>'
           social_pattern=r'<script src="https://pl31198060\.profitableratecpmnetwork\.com/14/41/a6/1441a6308d99f419a586dc758e38f62a\.js"></script>'
+
           for p in Path('.').rglob('*.html'):
               s=p.read_text()
-              s=s.replace(old_native,'').replace(old_wide,'').replace(old_300,'')
-              s=re.sub(r'<div class="ad-native">.*?</div>', '', s, flags=re.S)
+              # Remove previous placements cleanly, including the nested native container.
+              s=re.sub(r'<div class="ad-native">\s*<script[^>]*src="https://pl31172636\.profitableratecpmnetwork\.com/a609aa5baa281946f3978d91f6e7f4d5/invoke\.js"></script>\s*<div id="container-a609aa5baa281946f3978d91f6e7f4d5"></div>\s*</div>', '', s, flags=re.S)
               s=re.sub(r'<div class="ad-300">.*?</div>', '', s, flags=re.S)
               s=re.sub(r'<div class="ad-responsive ad-(?:728|320)">.*?</div>', '', s, flags=re.S)
               s=re.sub(r'<div class="smartlink-box">.*?</div>', '', s, flags=re.S)
@@ -38,10 +37,18 @@ jobs:
               s=re.sub(r'<script async src="https://pagead\.googlesyndication\.com/[^>]+></script>', '', s)
               s=s.replace(css,'')
               s=s.replace('</style>',css+'</style>',1)
+
               if 'articulos/' in str(p):
-                  s=re.sub(r'(<h2>.*?</h2><p>.*?</p>)',r'\1'+native,s,count=1,flags=re.S)
-                  s=re.sub(r'(<h2>.*?</h2><p>.*?</p>)',r'\1'+b300,s,count=1,flags=re.S)
-                  s=re.sub(r'(<h2>.*?</h2><p>.*?</p>)',r'\1'+b728+b320,s,count=1,flags=re.S)
+                  # Place ads after the first paragraph of the first three article sections.
+                  s=re.sub(r'(<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>)', r'\1'+native, s, count=1, flags=re.S)
+                  matches=list(re.finditer(r'<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>', s, flags=re.S))
+                  if len(matches) >= 2:
+                      m=matches[1]
+                      s=s[:m.end()]+b300+s[m.end():]
+                  matches=list(re.finditer(r'<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>', s, flags=re.S))
+                  if len(matches) >= 3:
+                      m=matches[2]
+                      s=s[:m.end()]+b728+b320+s[m.end():]
                   s=s.replace('</main>',smart+'</main>',1)
                   s=s.replace('</body>',social+'</body>',1)
               elif p.name=='index.html':
@@ -50,9 +57,10 @@ jobs:
                   s=re.sub(r'(</section>)',r'\1'+b728+b320,s,count=1,flags=re.S)
                   s=s.replace('</body>',social+'</body>',1)
               p.write_text(s)
+
           PY
           git config user.name ads-optimizer
           git config user.email actions@users.noreply.github.com
           git add -A
-          git commit -m 'Apply clean Adsterra placements' || exit 0
+          git commit -m 'Fix visible article ad placement' || exit 0
           git push
