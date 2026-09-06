@@ -13,7 +13,6 @@ M={
 'automatizar-tareas-sin-programar.html':('Cómo automatizar tareas sin programar','Guía práctica para identificar procesos repetitivos, elegir herramientas y automatizar tareas sin programar.'),
 'como-elegir-herramienta-ia.html':('Cómo elegir una herramienta de IA para tu negocio','Aprende a elegir una herramienta de IA según tarea, coste, privacidad, integraciones, facilidad y retorno.'),
 'ia-y-privacidad-datos-negocio.html':('IA y privacidad de datos en un negocio','Guía práctica para usar IA en un negocio reduciendo riesgos de privacidad y evitando compartir datos innecesarios.')}
-AD='<div class="ad-300" aria-label="Publicidad"><script>atOptions={"key":"f177569624c6dd37ca61725706854f70","format":"iframe","height":250,"width":300,"params":{}};</script><script src="https://www.highrevenueformat.com/f177569624c6dd37ca61725706854f70/invoke.js"></script></div>'
 for p in Path('articulos').glob('*.html'):
  if p.name not in M: continue
  s=p.read_text(encoding='utf-8'); title,desc=M[p.name]
@@ -21,24 +20,18 @@ for p in Path('articulos').glob('*.html'):
  s=re.sub(r'<meta name=["\']description["\'] content=["\'][^"\']*["\']',f'<meta name="description" content="{desc}"',s,count=1)
  s=re.sub(r'<meta property=["\']og:title["\'] content=["\'][^"\']*["\']',f'<meta property="og:title" content="{title}"',s,count=1)
  s=re.sub(r'<meta property=["\']og:description["\'] content=["\'][^"\']*["\']',f'<meta property="og:description" content="{desc}"',s,count=1)
- # Clean artifacts left by nested ad markup and duplicate style tags.
  s=s.replace('</style></style>','</style>')
  s=s.replace('</p></div><div class="box">','</p><div class="box">')
  s=s.replace('</p></div><div class="use">','</p><div class="use">')
  s=s.replace('Afirmações que puedan perjudicar a terceros','Afirmaciones que puedan perjudicar a terceros')
- # Remove every previous ad placement, then add exactly one clean placement.
- s=re.sub(r'<div class="ad-native">.*?</div>|<div class="ad-300">.*?</div>|<div class="ad-responsive[^>]*>.*?</div>','',s,flags=re.S)
+ # Remove all ad formats and ad-network scripts. The dedicated ad placement step adds the controlled set afterwards.
+ s=re.sub(r'<div class="ad-native">.*?</div>|<div class="ad-300">.*?</div>|<div class="ad-responsive[^>]*>.*?</div>|<div class="smartlink-box">.*?</div>','',s,flags=re.S)
  s=re.sub(r'<script[^>]+(?:profitableratecpmnetwork|highrevenueformat\.com)[^>]+></script>','',s,flags=re.S)
- hs=list(re.finditer(r'</h2>',s,re.I))
- if hs:
-  pos=hs[min(1,len(hs)-1)].end();s=s[:pos]+AD+s[pos:]
- # Keep first image eager and later images lazy; add decoding hints.
  imgs=list(re.finditer(r'<img\b[^>]*>',s,re.I))
  for idx,m in reversed(list(enumerate(imgs))):
   tag=m.group(0)
-  if 'decoding=' not in tag:tag=tag[:-1]+' decoding="async">'
-  if idx>0 and 'loading=' not in tag:tag=tag[:-1]+' loading="lazy">'
+  if 'decoding=' not in tag: tag=tag[:-1]+' decoding="async">'
+  if idx>0 and 'loading=' not in tag: tag=tag[:-1]+' loading="lazy">'
   s=s[:m.start()]+tag+s[m.end():]
- # Make generated internal links relative instead of absolute.
  s=s.replace('https://jawad123-creator.github.io/Negocios.IA/articulos/','/Negocios.IA/articulos/')
  p.write_text(s,encoding='utf-8')
