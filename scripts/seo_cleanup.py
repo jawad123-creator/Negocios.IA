@@ -24,9 +24,7 @@ for p in Path('articulos').glob('*.html'):
  s=s.replace('</p></div><div class="box">','</p><div class="box">')
  s=s.replace('</p></div><div class="use">','</p><div class="use">')
  s=s.replace('Afirmações que puedan perjudicar a terceros','Afirmaciones que puedan perjudicar a terceros')
- # Remove all ad formats and ad-network scripts. The dedicated ad placement step adds the controlled set afterwards.
- s=re.sub(r'<div class="ad-native">.*?</div>|<div class="ad-300">.*?</div>|<div class="ad-responsive[^>]*>.*?</div>|<div class="smartlink-box">.*?</div>','',s,flags=re.S)
- s=re.sub(r'<script[^>]+(?:profitableratecpmnetwork|highrevenueformat\.com)[^>]+></script>','',s,flags=re.S)
+ # Do not touch ad code here. seo_optimize.py is the single placement stage and runs after cleanup.
  imgs=list(re.finditer(r'<img\b[^>]*>',s,re.I))
  for idx,m in reversed(list(enumerate(imgs))):
   tag=m.group(0)
