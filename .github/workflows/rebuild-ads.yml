@@ -6,7 +6,6 @@ permissions:
   contents: write
 jobs:
   optimize:
-    if: ${{ !contains(github.event.head_commit.message, 'SEO: apply automated article optimization') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
