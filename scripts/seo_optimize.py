@@ -19,18 +19,13 @@ for p in files:
  md=re.search(r'(<meta name="description" content=")([^"]*)(")',s)
  if md and len(md.group(2))>155:
   d=md.group(2)[:152].rsplit(' ',1)[0]+'…';s=s[:md.start(2)]+d+s[md.end(2):]
- # Remove the inner native container first. Older runs left native wrappers around this div,
- # which made the old cleanup regex stop at the wrong closing tag and created large empty gaps.
+ # Clean old generated blocks, including malformed native wrappers from earlier runs.
  s=re.sub(r'<div[^>]*id="container-a609aa5baa281946f3978d91f6e7f4d5"[^>]*>\s*</div>','',s,flags=re.S|re.I)
- # Remove every previously generated ad/recommendation wrapper before rebuilding exactly one controlled set.
- s=re.sub(r'<div\s+class="ad-native"[^>]*>.*?</div>','',s,flags=re.S|re.I)
- s=re.sub(r'<div\s+class="ad-300"[^>]*>.*?</div>','',s,flags=re.S|re.I)
- s=re.sub(r'<div\s+class="ad-responsive[^>]*>.*?</div>','',s,flags=re.S|re.I)
- s=re.sub(r'<div\s+class="smartlink-box"[^>]*>.*?</div>','',s,flags=re.S|re.I)
+ for pattern in [r'<div\s+class="ad-native"[^>]*>.*?</div>',r'<div\s+class="ad-300"[^>]*>.*?</div>',r'<div\s+class="ad-responsive[^>]*>.*?</div>',r'<div\s+class="smartlink-box"[^>]*>.*?</div>']:
+  s=re.sub(pattern,'',s,flags=re.S|re.I)
  s=re.sub(r'<script[^>]+(?:profitableratecpmnetwork|highrevenueformat\.com)[^>]*>.*?</script>','',s,flags=re.S|re.I)
  s=re.sub(r'<script[^>]+(?:profitableratecpmnetwork|highrevenueformat\.com)[^>]*/>','',s,flags=re.S|re.I)
  s=re.sub(r'<script>\(function\(\)\{try\{if\(!sessionStorage\.getItem\("nia_popunder_seen"\).*?</script>','',s,flags=re.S)
- s=s.replace('</style></style>','</style>')
  def schema(m):
   try:o=json.loads(m.group(1))
   except:return m.group(0)
@@ -42,9 +37,7 @@ for p in files:
     x['publisher']={'@type':'Organization','name':'Negocios.IA','url':BASE,'logo':{'@type':'ImageObject','url':BASE+'favicon.svg'}}
   return '<script type="application/ld+json">'+json.dumps(o if isinstance(o,list) else arr[0],ensure_ascii=False,separators=(',',':'))+'</script>'
  s=re.sub(r'<script type="application/ld\+json">(.*?)</script>',schema,s,flags=re.S)
- # Always append the final ad CSS so old generated CSS cannot reintroduce 250px blank reserves.
- if '</head>' in s:
-  s=s.replace('</head>',CSS+'</head>',1)
+ if '</head>' in s:s=s.replace('</head>',CSS+'</head>',1)
  hs=list(re.finditer(r'</h2>',s,re.I))
  if hs:
   n=len(hs)
@@ -52,11 +45,9 @@ for p in files:
   elif n>=3:idxs=[0,n//2,n-1]
   elif n==2:idxs=[0,1]
   else:idxs=[0]
-  idxs=sorted(set(idxs));ads=[BOX,NATIVE,WIDE]
-  for idx,ad in reversed(list(zip(idxs,ads))):
-   pos=hs[idx].end();s=s[:pos]+ad+s[pos:]
-  if n>=4:
-   target=hs[min(n-2,len(hs)-1)].end();s=s[:target]+SMART+s[target:]
+  idxs=sorted(set(idxs)); placements=[(hs[idx].end(),ad) for idx,ad in zip(idxs,[BOX,NATIVE,WIDE])]
+  if n>=4:placements.append((hs[n-2].end(),SMART))
+  for pos,ad in sorted(placements,reverse=True):s=s[:pos]+ad+s[pos:]
  if SOCIAL not in s:s=s.replace('</body>',SOCIAL+'</body>',1)
  if 'nia_popunder_seen' not in s:s=s.replace('</body>',POP+'</body>',1)
  imgs=list(re.finditer(r'<img\b[^>]*>',s,re.I))
