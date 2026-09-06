@@ -1,4 +1,4 @@
-name: Optimize ads
+name: SEO y anuncios
 on:
   push:
     branches: [main]
@@ -6,64 +6,17 @@ permissions:
   contents: write
 jobs:
   optimize:
+    if: ${{ !contains(github.event.head_commit.message, 'SEO: apply automated article optimization') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Replace Adsterra placements
+      - name: Optimizar artículos
+        run: python3 scripts/seo_optimize.py
+      - name: Commit optimizaciones
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          native='<div class="ad-native"><script async="async" data-cfasync="false" src="https://pl31172636.profitableratecpmnetwork.com/a609aa5baa281946f3978d91f6e7f4d5/invoke.js"></script><div id="container-a609aa5baa281946f3978d91f6e7f4d5"></div></div>'
-          b300='<div class="ad-300"><script>atOptions={"key":"f177569624c6dd37ca61725706854f70","format":"iframe","height":250,"width":300,"params":{}};</script><script src="https://www.highrevenueformat.com/f177569624c6dd37ca61725706854f70/invoke.js"></script></div>'
-          b728='<div class="ad-responsive ad-728"><script>atOptions={"key":"4dc1319aa7ca2d9e4cee5cd26c710cf9","format":"iframe","height":90,"width":728,"params":{}};</script><script src="https://www.highrevenueformat.com/4dc1319aa7ca2d9e4cee5cd26c710cf9/invoke.js"></script></div>'
-          b320='<div class="ad-responsive ad-320"><script>atOptions={"key":"3f17c555bf8527101418eba1f505d7d4","format":"iframe","height":50,"width":320,"params":{}};</script><script src="https://www.highrevenueformat.com/3f17c555bf8527101418eba1f505d7d4/invoke.js"></script></div>'
-          social='<script src="https://pl31198060.profitableratecpmnetwork.com/14/41/a6/1441a6308d99f419a586dc758e38f62a.js"></script>'
-          smart='<div class="smartlink-box"><span>Recurso recomendado</span><a href="https://www.profitableratecpmnetwork.com/vtpmjm7xn?key=1a302b22acf124ab07d482bc7db8486a" rel="nofollow sponsored">Ver recurso →</a></div>'
-          css='.ad-native,.ad-300,.ad-responsive{margin:34px auto;display:flex;align-items:center;justify-content:center;overflow:hidden}.ad-native{width:100%;max-width:820px}.ad-300{width:300px;min-height:250px}.ad-responsive{width:100%;height:90px}.ad-320{display:none}.smartlink-box{margin:38px 0;padding:16px 18px;background:#121a2e;border:1px solid #ffffff1a;border-radius:12px;display:flex;justify-content:space-between;gap:15px;align-items:center}.smartlink-box span{color:#a7b0c0}.smartlink-box a{font-weight:700}@media(max-width:600px){.ad-728{display:none}.ad-320{display:flex;height:50px}.smartlink-box{flex-direction:column;align-items:flex-start}}'
-          pop_pattern=r'<script src="https://pl31198058\.profitableratecpmnetwork\.com/55/9f/e7/559fe752a937dcc608a0d073e947a5c3\.js"></script>'
-          social_pattern=r'<script src="https://pl31198060\.profitableratecpmnetwork\.com/14/41/a6/1441a6308d99f419a586dc758e38f62a\.js"></script>'
-
-          for p in Path('.').rglob('*.html'):
-              s=p.read_text()
-              # Remove previous placements safely, including the nested native container.
-              s=re.sub(r'<div class="ad-native">\s*<script[^>]*src="https://pl31172636\.profitableratecpmnetwork\.com/a609aa5baa281946f3978d91f6e7f4d5/invoke\.js"></script>\s*<div id="container-a609aa5baa281946f3978d91f6e7f4d5"></div>\s*</div>', '', s, flags=re.S)
-              s=re.sub(r'<div class="ad-300">.*?</div>', '', s, flags=re.S)
-              s=re.sub(r'<div class="ad-responsive ad-(?:728|320)">.*?</div>', '', s, flags=re.S)
-              s=re.sub(r'<div class="smartlink-box">.*?</div>', '', s, flags=re.S)
-              s=re.sub(pop_pattern, '', s)
-              s=re.sub(social_pattern, '', s)
-              s=re.sub(r'<script async src="https://pagead\.googlesyndication\.com/[^>]+></script>', '', s)
-              s=s.replace(css,'')
-              s=s.replace('</style>',css+'</style>',1)
-
-              if 'articulos/' in str(p):
-                  pattern=r'<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>'
-                  matches=list(re.finditer(pattern, s, flags=re.S))
-                  # Spread five display placements through long articles instead of clustering them at the top.
-                  # Use up to five distinct sections, roughly every two sections, then keep the smartlink at the end.
-                  placements=[]
-                  for idx, ad in zip([0,2,4,6,8], [native,b300,b728+b320,native,b300]):
-                      if idx < len(matches):
-                          placements.append((matches[idx].end(), ad))
-                  for pos, ad in reversed(placements):
-                      s=s[:pos]+ad+s[pos:]
-                  s=s.replace('</main>',smart+'</main>',1)
-                  s=s.replace('</body>',social+'</body>',1)
-              elif p.name=='index.html':
-                  sections=list(re.finditer(r'</section>',s,flags=re.S))
-                  if sections:
-                      inserts=[(sections[0].end(),b300)]
-                      if len(sections)>1: inserts.append((sections[1].end(),native))
-                      if len(sections)>2: inserts.append((sections[2].end(),b728+b320))
-                      for pos,ad in reversed(inserts): s=s[:pos]+ad+s[pos:]
-                  s=s.replace('</body>',social+'</body>',1)
-              p.write_text(s)
-
-          PY
-          git config user.name ads-optimizer
-          git config user.email actions@users.noreply.github.com
-          git add -A
-          git commit -m 'Spread ads across full article length' || exit 0
+          git config user.name "seo-optimizer"
+          git config user.email "actions@users.noreply.github.com"
+          git add articulos scripts/seo_optimize.py .github/workflows/rebuild-ads.yml
+          git diff --cached --quiet && exit 0
+          git commit -m "SEO: apply automated article optimization"
           git push
