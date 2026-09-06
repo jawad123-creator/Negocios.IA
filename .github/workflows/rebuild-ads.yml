@@ -27,7 +27,7 @@ jobs:
 
           for p in Path('.').rglob('*.html'):
               s=p.read_text()
-              # Remove previous placements cleanly, including the nested native container.
+              # Remove previous placements safely, including the nested native container.
               s=re.sub(r'<div class="ad-native">\s*<script[^>]*src="https://pl31172636\.profitableratecpmnetwork\.com/a609aa5baa281946f3978d91f6e7f4d5/invoke\.js"></script>\s*<div id="container-a609aa5baa281946f3978d91f6e7f4d5"></div>\s*</div>', '', s, flags=re.S)
               s=re.sub(r'<div class="ad-300">.*?</div>', '', s, flags=re.S)
               s=re.sub(r'<div class="ad-responsive ad-(?:728|320)">.*?</div>', '', s, flags=re.S)
@@ -39,22 +39,25 @@ jobs:
               s=s.replace('</style>',css+'</style>',1)
 
               if 'articulos/' in str(p):
-                  # Place ads after the first paragraph of the first three article sections.
-                  s=re.sub(r'(<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>)', r'\1'+native, s, count=1, flags=re.S)
-                  matches=list(re.finditer(r'<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>', s, flags=re.S))
-                  if len(matches) >= 2:
-                      m=matches[1]
-                      s=s[:m.end()]+b300+s[m.end():]
-                  matches=list(re.finditer(r'<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>', s, flags=re.S))
-                  if len(matches) >= 3:
-                      m=matches[2]
-                      s=s[:m.end()]+b728+b320+s[m.end():]
+                  pattern=r'<h2\b[^>]*>.*?</h2>\s*<p>.*?</p>'
+                  matches=list(re.finditer(pattern, s, flags=re.S))
+                  # Spread five display placements through long articles instead of clustering them at the top.
+                  # Use up to five distinct sections, roughly every two sections, then keep the smartlink at the end.
+                  placements=[]
+                  for idx, ad in zip([0,2,4,6,8], [native,b300,b728+b320,native,b300]):
+                      if idx < len(matches):
+                          placements.append((matches[idx].end(), ad))
+                  for pos, ad in reversed(placements):
+                      s=s[:pos]+ad+s[pos:]
                   s=s.replace('</main>',smart+'</main>',1)
                   s=s.replace('</body>',social+'</body>',1)
               elif p.name=='index.html':
-                  s=re.sub(r'(</section>)',r'\1'+b300,s,count=1,flags=re.S)
-                  s=re.sub(r'(</section>)',r'\1'+native,s,count=1,flags=re.S)
-                  s=re.sub(r'(</section>)',r'\1'+b728+b320,s,count=1,flags=re.S)
+                  sections=list(re.finditer(r'</section>',s,flags=re.S))
+                  if sections:
+                      inserts=[(sections[0].end(),b300)]
+                      if len(sections)>1: inserts.append((sections[1].end(),native))
+                      if len(sections)>2: inserts.append((sections[2].end(),b728+b320))
+                      for pos,ad in reversed(inserts): s=s[:pos]+ad+s[pos:]
                   s=s.replace('</body>',social+'</body>',1)
               p.write_text(s)
 
@@ -62,5 +65,5 @@ jobs:
           git config user.name ads-optimizer
           git config user.email actions@users.noreply.github.com
           git add -A
-          git commit -m 'Fix visible article ad placement' || exit 0
+          git commit -m 'Spread ads across full article length' || exit 0
           git push
