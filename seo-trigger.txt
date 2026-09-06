@@ -1,0 +1,1 @@
+SEO maintenance trigger — safe to keep; no runtime dependency.
